@@ -39,5 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/private/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and().formLogin();
+
+        // just for H2 db, not for production
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 }
