@@ -6,6 +6,8 @@ import com.springbootsecurity.demo.repository.RoleRepository;
 import com.springbootsecurity.demo.repository.UserRepository;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -32,7 +34,8 @@ public class AddData implements ApplicationListener<ContextRefreshedEvent> {
         User u = new User();
         u.setFullName("Hamza");
         u.setUsername("hzouitine");
-        u.setPassword("hzouitine");
+        PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        u.setPassword(pe.encode("hzouitine"));
         u.setRoles(new ArrayList<>());
         String[] roles= new String[]{"ADMIN","USER","GUEST"};
         for(String s : roles) {

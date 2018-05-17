@@ -1,5 +1,7 @@
 package com.springbootsecurity.demo.configuration;
 
+import com.springbootsecurity.demo.service.UserService;
+import com.springbootsecurity.demo.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,18 +19,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    private UserServiceImpl userService;
+
+    @Autowired
     public void configAuth(AuthenticationManagerBuilder auth) throws Exception {
 
         PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        auth
-                .inMemoryAuthentication().passwordEncoder(pe)
-                .withUser("hamza")
-                .password(pe.encode("hamza"))
-                .roles("ADMIN")
-                .and()
-                .withUser("nothamza")
-                .password("nothamza")
-                .roles("GUEST");
+        auth.userDetailsService(userService).passwordEncoder(pe);
 
     }
 
