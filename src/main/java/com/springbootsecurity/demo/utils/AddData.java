@@ -37,7 +37,7 @@ public class AddData implements ApplicationListener<ContextRefreshedEvent> {
         PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         u.setPassword(pe.encode("hzouitine"));
         u.setRoles(new ArrayList<>());
-        String[] roles= new String[]{"ADMIN","USER","GUEST"};
+        String[] roles= new String[]{"ROLE_ADMIN","ROLE_USER","ROLE_GUEST"};
         for(String s : roles) {
             Role role = new Role();
             role.setRole(s);
